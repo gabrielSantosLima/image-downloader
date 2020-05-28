@@ -1,9 +1,15 @@
-const image = require('./image')
+const image = require('./image');
 
 module.exports = {
   async pesquisarImagem(query){
-    const url = await image.searchImages(query) 
+    const url = await image.searchImages(query) ;
 
-    return { url }
+    return { url };
+  },
+  
+  async baixarImagem(url){
+    const mensagem = await image.downloadImage(url); 
+
+    return mensagem;
   }
 }

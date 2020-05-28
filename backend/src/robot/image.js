@@ -1,9 +1,10 @@
-const google = require('googleapis').google
+const google = require('googleapis').google;
 const customSearch = google.customsearch('v1');
+const downloader = require('image-downloader');
 
-const credentials = require('./../../credentials/config.json')
+const credentials = require('./../../credentials/config.json');
 
-const input = require('../input')
+const input = require('../input');
 
 module.exports = {
     async searchImages(query){
@@ -16,14 +17,25 @@ module.exports = {
                 imgSize: 'large',
                 num: 5
             });
-
+            
             return response.data.items.map((item) => item.link);
         }catch(error){
             return { error };
         }
     },
-
-    async downloadImage(url){
-        return {}
+    
+    downloadImage(url){
+        const options = {
+            url: url,
+            dest: process.env.USERPROFILE + "/Downloads"
+        };
+        
+        return downloader.image(options)
+        .then(({ filename }) => {
+            return `Salvo ${filename}`;
+        })
+        .catch((error) => {
+            return { error };
+        });
     }
 };
