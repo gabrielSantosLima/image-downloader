@@ -12,7 +12,7 @@ module.exports = {
       
       return resp.json({
         message: "Enviado com sucesso",
-        url: urls
+        urls  
       });
     }catch(error){
       
@@ -26,9 +26,9 @@ module.exports = {
     try{
       const { url } = req.body;
       
-      const mensagem = await robots.baixarImagem(url);
+      const message = await robots.baixarImagem(url);
       
-      return resp.json({ mensagem });
+      return resp.json({ message });
     }catch(error){
       return resp.json({
         message: `Erro! Tente novamente! Messagem: ${error}` 

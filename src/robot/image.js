@@ -18,7 +18,20 @@ module.exports = {
                 num: 5
             });
             
-            return response.data.items.map((item) => item.link);
+            const items = response.data.items.map((item) => item.link); 
+
+            let index = 0;
+
+            const data = items.map(item => {
+                index++;
+                
+                return {
+                    id: index,
+                    url: item
+                }
+            })
+
+            return data;
         }catch(error){
             return { error };
         }
